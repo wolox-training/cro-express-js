@@ -4,7 +4,7 @@ const { signUp } = require('./controllers/auth/signUp');
 
 exports.init = app => {
   app.get('/health', healthCheck);
-  app.post('/signUp', signUp);
+  app.post('/users', signUp);
   // app.get('/endpoint/get/path', [], controller.methodGET);
   // app.put('/endpoint/put/path', [], controller.methodPUT);
   // app.post('/endpoint/post/path', [], controller.methodPOST);
