@@ -1,33 +1,5 @@
 module.exports = {
   '/users': {
-    get: {
-      tags: ['CRUD operations'],
-      description: 'Get users',
-      operationId: 'getUsers',
-      parameters: [
-        {
-          name: 'page',
-          in: 'query',
-          schema: {
-            type: 'integer',
-            default: 1
-          },
-          required: false
-        }
-      ],
-      responses: {
-        200: {
-          description: 'Users were obtained',
-          content: {
-            'application/json': {
-              schema: {
-                $ref: '#/components/schemas/Users'
-              }
-            }
-          }
-        }
-      }
-    },
     post: {
       tags: ['CRUD operations'],
       description: 'Create user',
@@ -45,7 +17,7 @@ module.exports = {
       },
       responses: {
         200: {
-          description: 'New user was created'
+          description: 'User (name) was registered successfully'
         },
         400: {
           description: 'Invalid parameters',
@@ -55,8 +27,22 @@ module.exports = {
                 $ref: '#/components/schemas/Error'
               },
               example: {
-                message: 'User´s email already exists',
-                internal_code: 'invalid_parameters'
+                message: 'The email does not belong to the company',
+                internal_code: 'validation_error'
+              }
+            }
+          }
+        },
+        409: {
+          description: 'duplicate email',
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Error'
+              },
+              example: {
+                message: 'TThere is already a registered user with this email',
+                internal_code: 'conflict_error'
               }
             }
           }

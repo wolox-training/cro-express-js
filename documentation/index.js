@@ -13,7 +13,7 @@ module.exports = {
     termsOfService: '',
     contact: {
       name: 'Wolox',
-      email: 'tls@wolox.com.ar',
+      email: 'c.romero.acosta@wolox.co',
       url: 'https://www.wolox.com.ar/'
     },
     license: {
