@@ -1,6 +1,7 @@
-const internalError = (message, internalCode) => ({
+const internalError = (message, internalCode, errors = null) => ({
   message,
-  internalCode
+  internalCode,
+  errors
 });
 
 exports.DATABASE_ERROR = 'database_error';
@@ -10,10 +11,10 @@ exports.DEFAULT_ERROR = 'default_error';
 exports.defaultError = message => internalError(message, exports.DEFAULT_ERROR);
 
 exports.VALIDATION_ERROR = 'validation_error';
-exports.validationError = message => internalError(message, exports.VALIDATION_ERROR);
+exports.validationError = (message, errors) => internalError(message, exports.VALIDATION_ERROR, errors);
 
 exports.CONFLICT_ERROR = 'conflict_error';
-exports.conflictError = message => internalError(message, exports.CONFLICT_ERROR);
+exports.conflictError = (message, errors) => internalError(message, exports.CONFLICT_ERROR, errors);
 
 exports.NOT_BELONG_COMPANY = 'The email does not belong to the company';
 exports.EMAIL_ALREADY_EXISTS = 'There is already a registered user with this email';
