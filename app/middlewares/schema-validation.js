@@ -1,6 +1,7 @@
 const { body, validationResult, checkSchema } = require('express-validator');
 const { User } = require('../../app/models');
 const { EMAIL_ALREADY_EXISTS } = require('../errors');
+const { validationError, conflictError } = require('../errors');
 
 exports.schemaValidation = schema => [
   checkSchema(schema),
@@ -14,7 +15,8 @@ exports.schemaValidation = schema => [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      const message = errors.array()[0].msg;
+      return message === EMAIL_ALREADY_EXISTS ? next(conflictError(message)) : next(validationError(message));
     }
 
     return next();
