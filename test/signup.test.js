@@ -30,4 +30,11 @@ describe('POST /users', () => {
     expect(response.statusCode).toEqual(422);
     done();
   });
+  test('Null parameter', async done => {
+    const response = await request(app)
+      .post('/users')
+      .send({ ...mockUser, name: null });
+    expect(response.statusCode).toEqual(500);
+    done();
+  });
 });
