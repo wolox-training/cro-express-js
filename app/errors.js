@@ -18,4 +18,6 @@ exports.conflictError = (message, errors) => internalError(message, exports.CONF
 
 exports.NOT_BELONG_COMPANY = 'The email does not belong to the company';
 exports.EMAIL_ALREADY_EXISTS = 'There is already a registered user with this email';
+exports.EMAIL_DOES_NOT_EXIST = 'There is not already a registered user with this email';
 exports.INVALID_PASSWORD = 'Password should be at least 8 chars long';
+exports.WRONG_PASSWORD = 'Wrong password';

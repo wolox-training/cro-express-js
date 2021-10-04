@@ -1,6 +1,6 @@
 const { NOT_BELONG_COMPANY, INVALID_PASSWORD } = require('../errors');
 
-const signUpSchema = {
+const authSchema = {
   email: {
     matches: {
       errorMessage: NOT_BELONG_COMPANY,
@@ -15,4 +15,4 @@ const signUpSchema = {
   }
 };
 
-module.exports = { signUpSchema };
+module.exports = { authSchema };
