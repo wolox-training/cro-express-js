@@ -9,7 +9,7 @@ exports.signIn = (req, res, next) => {
     });
     res.send({ token });
   } catch (error) {
-    logger.error(error.message);
+    logger.error(error);
     next(error);
   }
 };

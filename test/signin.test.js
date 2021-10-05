@@ -13,7 +13,7 @@ const mockCredentials = {
   password: '2w1321AScsda#'
 };
 
-describe('POST /users', () => {
+describe('POST /users/sessions', () => {
   beforeEach(async () => {
     await request(app)
       .post('/users')
