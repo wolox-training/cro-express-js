@@ -1,18 +1,6 @@
 const { NOT_BELONG_COMPANY, INVALID_PASSWORD, NOT_NULL } = require('../errors');
 
-const signUpSchema = {
-  name: {
-    custom: {
-      errorMessage: `Name ${NOT_NULL}`,
-      options: value => !!value
-    }
-  },
-  last_name: {
-    custom: {
-      errorMessage: `Last name ${NOT_NULL}`,
-      options: value => !!value
-    }
-  },
+const signInSchema = {
   email: {
     matches: {
       errorMessage: NOT_BELONG_COMPANY,
@@ -27,4 +15,20 @@ const signUpSchema = {
   }
 };
 
-module.exports = { signUpSchema };
+const signUpSchema = {
+  ...signInSchema,
+  name: {
+    custom: {
+      errorMessage: `Name ${NOT_NULL}`,
+      options: value => !!value
+    }
+  },
+  last_name: {
+    custom: {
+      errorMessage: `Last name ${NOT_NULL}`,
+      options: value => !!value
+    }
+  }
+};
+
+module.exports = { signUpSchema, signInSchema };
