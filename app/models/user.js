@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false
       },
-      password: { type: DataTypes.STRING, allowNull: false }
+      password: { type: DataTypes.STRING, allowNull: false },
+      isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false, field: 'is_admin' }
     },
     {
       timestamps: false,
