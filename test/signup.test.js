@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
+const { INVALID_PASSWORD, NOT_BELONG_COMPANY, NOT_NULL } = require('../app/errors');
 
 const mockUser = {
   name: 'Richard',
@@ -21,6 +22,7 @@ describe('POST /users', () => {
       .post('/users')
       .send({ ...mockUser, password: 'AB' });
     expect(response.statusCode).toEqual(422);
+    expect(response.body.errors).toContain(INVALID_PASSWORD);
     done();
   });
   test('Email with external domain', async done => {
@@ -28,13 +30,15 @@ describe('POST /users', () => {
       .post('/users')
       .send({ ...mockUser, email: 'r.feynman@gmail.com' });
     expect(response.statusCode).toEqual(422);
+    expect(response.body.errors).toContain(NOT_BELONG_COMPANY);
     done();
   });
   test('Null parameter', async done => {
     const response = await request(app)
       .post('/users')
       .send({ ...mockUser, name: null });
-    expect(response.statusCode).toEqual(500);
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.errors).toContain(`Name ${NOT_NULL}`);
     done();
   });
 });
