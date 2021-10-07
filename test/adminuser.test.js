@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
-const generateToken = require('../utils/generate-token');
+const generateToken = require('../app/utils/generate-token');
 const { INVALID_ADMIN_TOKEN } = require('../app/errors');
 
 const mockUser = {
@@ -12,7 +12,7 @@ const mockUser = {
 
 const mockAdmin = {
   ...mockUser,
-  isAdmin: true
+  role: 'admin'
 };
 
 describe('POST /admin/users', () => {
