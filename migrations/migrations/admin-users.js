@@ -2,10 +2,10 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.addColumn('users', 'is_admin', {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
+    queryInterface.addColumn('users', 'role', {
+      type: Sequelize.STRING,
+      defaultValue: 'user'
     }),
 
-  down: queryInterface => queryInterface.removeColumn('users', 'is_admin')
+  down: queryInterface => queryInterface.removeColumn('users', 'role')
 };

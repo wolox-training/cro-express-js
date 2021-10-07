@@ -1,4 +1,4 @@
-const { NOT_BELONG_COMPANY, INVALID_PASSWORD, NOT_NULL } = require('../errors');
+const { NOT_BELONG_COMPANY, INVALID_PASSWORD, NOT_NULL, INVALID_ROLE } = require('../errors');
 
 const signInSchema = {
   email: {
@@ -31,4 +31,14 @@ const signUpSchema = {
   }
 };
 
-module.exports = { signUpSchema, signInSchema };
+const adminSchema = {
+  ...signUpSchema,
+  role: {
+    matches: {
+      errorMessage: INVALID_ROLE,
+      options: /(user|admin)$/
+    }
+  }
+};
+
+module.exports = { signUpSchema, signInSchema, adminSchema };

@@ -8,12 +8,12 @@ const emailValidation = require('./middlewares/email-validation');
 const credentialsMatch = require('./middlewares/credentials-match');
 const tokenValidation = require('./middlewares/token-validation');
 const adminTokenValidation = require('./middlewares/admin-token-validation');
-const { signUpSchema, signInSchema } = require('./schemas/user');
+const { signUpSchema, signInSchema, adminSchema } = require('./schemas/user');
 
 exports.init = app => {
   app.get('/health', healthCheck);
   app.post('/users', [schemaValidation(signUpSchema), emailValidation], signUp);
   app.post('/users/sessions', [schemaValidation(signInSchema), credentialsMatch], signIn);
   app.get('/users', [tokenValidation], getUsers);
-  app.post('/admin/users', [schemaValidation(signUpSchema), adminTokenValidation], adminUser);
+  app.post('/admin/users', [schemaValidation(adminSchema), adminTokenValidation], adminUser);
 };
