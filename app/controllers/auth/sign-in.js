@@ -1,6 +1,6 @@
 const logger = require('../../logger');
 const { User } = require('../../models');
-const generateToken = require('../../../utils/generate-token');
+const generateToken = require('../../utils/generate-token');
 
 exports.signIn = async (req, res, next) => {
   try {

@@ -1,6 +1,6 @@
 const logger = require('../logger');
-const upsert = require('../../utils/upsert');
-const hashString = require('../../utils/hash-string');
+const upsert = require('../utils/upsert');
+const hashString = require('../utils/hash-string');
 
 exports.adminUser = async (req, res, next) => {
   try {
