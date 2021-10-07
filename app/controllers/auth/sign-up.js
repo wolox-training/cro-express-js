@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-const hashString = require('../../../utils/hash-string');
+const hashString = require('../../utils/hash-string');
 const logger = require('../../logger');
 
 exports.signUp = async (req, res, next) => {

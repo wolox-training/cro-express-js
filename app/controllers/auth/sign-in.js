@@ -1,5 +1,5 @@
 const logger = require('../../logger');
-const generateToken = require('../../../utils/generate-token');
+const generateToken = require('../../utils/generate-token');
 
 exports.signIn = (req, res, next) => {
   try {
