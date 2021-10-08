@@ -1,5 +1,9 @@
 const request = require('supertest');
+const { factory } = require('factory-girl');
+const { factoryByModel } = require('./factory/factory_by_models');
 const app = require('../app');
+const hashString = require('../app/utils/hash-string');
+
 const {
   INVALID_PASSWORD,
   NOT_BELONG_COMPANY,
@@ -7,24 +11,21 @@ const {
   EMAIL_DOES_NOT_EXIST
 } = require('../app/errors');
 
-const mockUser = {
-  name: 'Richard',
-  last_name: 'Feynman',
-  email: 'r.feynman@wolox.co',
-  password: '2w1321AScsda#'
-};
-
 const mockCredentials = {
   email: 'r.feynman@wolox.co',
-  password: '2w1321AScsda#'
+  password: '12345678#'
 };
 
-describe('POST /users/sessions', () => {
-  beforeEach(async () => {
-    await request(app)
-      .post('/users')
-      .send(mockUser);
+factoryByModel('User');
+
+beforeEach(async () => {
+  await factory.create('User', {
+    email: 'r.feynman@wolox.co',
+    password: hashString('12345678#')
   });
+});
+
+describe('POST /users/sessions', () => {
   test('Valid credentials', async done => {
     const response = await request(app)
       .post('/users/sessions')
@@ -35,7 +36,7 @@ describe('POST /users/sessions', () => {
   test('Weak password', async done => {
     const response = await request(app)
       .post('/users/sessions')
-      .send({ ...mockCredentials, password: 'AB' });
+      .send({ ...mockCredentials, password: '123' });
     expect(response.statusCode).toEqual(422);
     expect(response.body.errors).toContain(INVALID_PASSWORD);
     done();

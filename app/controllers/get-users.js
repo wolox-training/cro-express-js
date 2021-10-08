@@ -1,14 +1,10 @@
-const { User } = require('../models');
 const logger = require('../logger');
+const { findAndCountAll } = require('../services/users');
 
 exports.getUsers = async (req, res, next) => {
   const { offset, limit } = req.query;
   try {
-    const { rows } = await User.findAndCountAll({
-      offset,
-      limit
-    });
-    const users = rows.map(user => user.dataValues);
+    const users = await findAndCountAll(offset, limit);
     res.send(users);
   } catch (error) {
     logger.error(error);
