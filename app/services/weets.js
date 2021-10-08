@@ -3,7 +3,7 @@ const axios = require('axios');
 const { url } = require('../../config').common.weetsApi;
 const { defaultError } = require('../errors');
 
-exports.getWeet = async () => {
+const getWeet = async () => {
   try {
     const { data } = await axios.get(url);
     return data;
@@ -11,3 +11,5 @@ exports.getWeet = async () => {
     return defaultError(error);
   }
 };
+
+module.exports = getWeet;
