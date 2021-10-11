@@ -9,7 +9,8 @@ const statusCodes = {
   [errors.VALIDATION_ERROR]: 422,
   [errors.CONFLICT_ERROR]: 409,
   [errors.AUTHORIZATION_ERROR]: 401,
-  [errors.NOT_ACCEPTABLE_ERROR]: 406
+  [errors.NOT_ACCEPTABLE_ERROR]: 406,
+  [errors.NOT_FOUND_ERROR]: 404
 };
 
 exports.handle = (error, req, res, next) => {
