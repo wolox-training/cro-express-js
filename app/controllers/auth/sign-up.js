@@ -6,8 +6,7 @@ exports.signUp = async (req, res, next) => {
   const { name, last_name, email, password } = req.body;
   try {
     const hashedPassword = hashString(password);
-
-    const user = await create(name, last_name, email, hashedPassword);
+    const user = await create({ name, lastName: last_name, email, password: hashedPassword });
     logger.info(user.name);
     res.json(`User ${user.name} was registered successfully`);
   } catch (error) {

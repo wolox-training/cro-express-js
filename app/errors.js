@@ -26,3 +26,5 @@ exports.EMAIL_DOES_NOT_EXIST = 'There is not already a registered user with this
 exports.INVALID_PASSWORD = 'Password should be at least 8 chars long';
 exports.WRONG_PASSWORD = 'Wrong password';
 exports.INVALID_TOKEN = 'The authorization token is not valid';
+exports.INVALID_ADMIN_TOKEN = 'the user is not authenticated as an administrator';
+exports.INVALID_ROLE = 'Role should be user or admin';
