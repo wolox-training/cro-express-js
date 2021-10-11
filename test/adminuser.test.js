@@ -1,33 +1,33 @@
 const request = require('supertest');
+const { factory } = require('factory-girl');
 const app = require('../app');
 const generateToken = require('../app/utils/generate-token');
+const hashString = require('../app/utils/hash-string');
+const { factoryByModel } = require('./factory/factory_by_models');
 const { INVALID_ADMIN_TOKEN } = require('../app/errors');
 
-const mockUser = {
-  name: 'Richard',
-  last_name: 'Feynman',
-  email: 'r.feynman@wolox.co',
-  password: '2w1321AScsda#'
-};
+factoryByModel('User');
 
-const mockAdmin = {
-  ...mockUser,
-  role: 'admin'
-};
+let mockUser = null;
+let mockAdminToken = null;
+let mockToken = null;
 
 describe('POST /admin/users', () => {
-  const mockAdminToken = generateToken(mockAdmin);
-  const mockToken = generateToken(mockUser);
   beforeEach(async () => {
-    await request(app)
-      .post('/users')
-      .send(mockUser);
+    const user = await factory.create('User', {
+      email: 'r.feynman@wolox.co',
+      password: hashString('2w1321AScsda#'),
+      role: 'admin'
+    });
+    mockUser = user.dataValues;
+    mockAdminToken = generateToken(mockUser);
+    mockToken = generateToken({ ...mockUser, role: 'user' });
   });
-  it('Create or update user if authenticated as administrator', async done => {
+  test('Create or update user if authenticated as administrator', async done => {
     const response = await request(app)
       .post('/admin/users')
       .set('Authorization', mockAdminToken)
-      .send(mockAdmin);
+      .send({ ...mockUser, last_name: mockUser.lastName });
     expect(response.statusCode).toBe(200);
     done();
   });
@@ -35,7 +35,7 @@ describe('POST /admin/users', () => {
     const response = await request(app)
       .post('/admin/users')
       .set('Authorization', mockToken)
-      .send(mockAdmin);
+      .send({ ...mockUser, last_name: mockUser.lastName, role: 'user' });
     expect(response.statusCode).toEqual(401);
     expect(response.body.errors).toContain(INVALID_ADMIN_TOKEN);
     done();

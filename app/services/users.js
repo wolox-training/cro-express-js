@@ -13,13 +13,8 @@ const findAndCountAll = async (offset, limit) => {
   return rows.map(user => user.dataValues);
 };
 
-const create = async (name, lastName, email, password) => {
-  const user = await User.create({
-    name,
-    lastName,
-    email,
-    password
-  });
+const create = async values => {
+  const user = await User.create(values);
   return user;
 };
 

@@ -1,9 +1,9 @@
-const { User } = require('../models');
+const { findOne, create } = require('./users');
 
 const upsert = async (values, condition) => {
-  const user = await User.findOne({ where: condition });
+  const user = await findOne(condition);
 
-  return user ? user.update({ role: values.role }) : User.create(values);
+  return user ? user.update({ role: values.role }) : create(values);
 };
 
 module.exports = upsert;
