@@ -1,24 +1,23 @@
 const request = require('supertest');
+const { factory } = require('factory-girl');
 const app = require('../app');
-
-const mockUser = {
-  name: 'Richard',
-  last_name: 'Feynman',
-  email: 'r.feynman@wolox.co',
-  password: '2w1321AScsda#'
-};
+const hashString = require('../app/utils/hash-string');
+const { factoryByModel } = require('./factory/factory_by_models');
 
 const mockCredentials = {
   email: 'r.feynman@wolox.co',
-  password: '2w1321AScsda#'
+  password: '12345678#'
 };
+
+factoryByModel('User');
 
 describe('GET /users', () => {
   let mockToken = null;
   beforeEach(async () => {
-    await request(app)
-      .post('/users')
-      .send(mockUser);
+    await factory.create('User', {
+      email: 'r.feynman@wolox.co',
+      password: hashString('12345678#')
+    });
     const {
       body: { token }
     } = await request(app)
