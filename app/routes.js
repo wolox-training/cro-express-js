@@ -10,8 +10,8 @@ const emailValidation = require('./middlewares/email-validation');
 const credentialsMatch = require('./middlewares/credentials-match');
 const tokenValidation = require('./middlewares/token-validation');
 const adminTokenValidation = require('./middlewares/admin-token-validation');
-const paramValidation = require('./middlewares/param-validation');
 const { signUpSchema, signInSchema, adminSchema } = require('./schemas/user');
+const { paramSchema } = require('./schemas/weet');
 
 exports.init = app => {
   app.get('/health', healthCheck);
@@ -20,5 +20,5 @@ exports.init = app => {
   app.get('/users', [tokenValidation], getUsers);
   app.post('/admin/users', [schemaValidation(adminSchema), adminTokenValidation], adminUser);
   app.post('/weets', [tokenValidation], createWeet);
-  app.get('/weets', [tokenValidation, paramValidation('user_id')], getWeets);
+  app.get('/weets', [tokenValidation, schemaValidation(paramSchema)], getWeets);
 };

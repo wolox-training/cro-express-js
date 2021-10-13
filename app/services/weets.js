@@ -13,15 +13,21 @@ const getWeet = async () => {
   }
 };
 
-const findAndCountAll = async (user_id, page, limit) => {
+const findAndCountAll = async (userId, page, limit) => {
+  const offset = page * limit;
   const data = await Weet.findAndCountAll({
     where: {
-      user_id
+      user_id: userId
     },
-    offset: page * limit,
+    offset: offset - limit,
     limit
   });
   return data;
 };
 
-module.exports = { getWeet, findAndCountAll };
+const create = async values => {
+  const weet = await Weet.create(values);
+  return weet;
+};
+
+module.exports = { getWeet, findAndCountAll, create };

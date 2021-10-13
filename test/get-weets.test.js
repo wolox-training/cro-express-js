@@ -41,7 +41,7 @@ describe('GET /weets', () => {
       .get('/weets')
       .query({ page: 1, limit: 5 })
       .set('Authorization', mockToken);
-    expect(response.statusCode).toBe(409);
+    expect(response.statusCode).toBe(422);
     expect(response.body.errors).toContain('The user_id parameter is required.');
     done();
   });
