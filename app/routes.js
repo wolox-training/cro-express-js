@@ -3,6 +3,7 @@ const { signUp } = require('./controllers/auth/sign-up');
 const { signIn } = require('./controllers/auth/sign-in');
 const { getUsers } = require('./controllers/get-users');
 const { adminUser } = require('./controllers/admin-user');
+const { weet } = require('./controllers/weet');
 const { schemaValidation } = require('./middlewares/schema-validation');
 const emailValidation = require('./middlewares/email-validation');
 const credentialsMatch = require('./middlewares/credentials-match');
@@ -16,4 +17,5 @@ exports.init = app => {
   app.post('/users/sessions', [schemaValidation(signInSchema), credentialsMatch], signIn);
   app.get('/users', [tokenValidation], getUsers);
   app.post('/admin/users', [schemaValidation(adminSchema), adminTokenValidation], adminUser);
+  app.post('/weets', [tokenValidation], weet);
 };

@@ -1,13 +1,20 @@
 const axios = require('axios');
-
+const { Weet } = require('../models');
 const { url } = require('../../config').common.weetsApi;
-const { defaultError } = require('../errors');
+const { notFoundError, NOT_WEET } = require('../errors');
 
-exports.getWeet = async () => {
+const getWeet = async () => {
   try {
     const { data } = await axios.get(url);
     return data;
-  } catch (error) {
-    return defaultError(error);
+  } catch {
+    throw notFoundError('generic schema', NOT_WEET);
   }
 };
+
+const create = async values => {
+  const weet = await Weet.create(values);
+  return weet;
+};
+
+module.exports = { getWeet, create };

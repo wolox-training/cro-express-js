@@ -19,6 +19,13 @@ exports.conflictError = (message, errors) => internalError(message, exports.CONF
 exports.AUTHORIZATION_ERROR = 'authorization_error';
 exports.authorizationError = (message, errors) => internalError(message, exports.AUTHORIZATION_ERROR, errors);
 
+exports.NOT_ACCEPTABLE_ERROR = 'not_acceptable_error';
+exports.notAcceptableError = (message, errors) =>
+  internalError(message, exports.NOT_ACCEPTABLE_ERROR, errors);
+
+exports.NOT_FOUND_ERROR = 'not_found_error';
+exports.notFoundError = (message, errors) => internalError(message, exports.NOT_FOUND_ERROR, errors);
+
 exports.NOT_BELONG_COMPANY = 'The email does not belong to the company';
 exports.NOT_NULL = 'can not be null';
 exports.EMAIL_ALREADY_EXISTS = 'There is already a registered user with this email';
@@ -28,3 +35,5 @@ exports.WRONG_PASSWORD = 'Wrong password';
 exports.INVALID_TOKEN = 'The authorization token is not valid';
 exports.INVALID_ADMIN_TOKEN = 'the user is not authenticated as an administrator';
 exports.INVALID_ROLE = 'Role should be user or admin';
+exports.LENGTH_WEET = 'The weet is too long';
+exports.NOT_WEET = 'It was not possible to get a weet';
