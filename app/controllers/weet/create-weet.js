@@ -1,8 +1,8 @@
-const logger = require('../logger');
-const { getWeet, create } = require('../services/weets');
-const { notAcceptableError, LENGTH_WEET } = require('../errors');
+const logger = require('../../logger');
+const { getWeet, create } = require('../../services/weets');
+const { notAcceptableError, LENGTH_WEET } = require('../../errors');
 
-exports.weet = async (req, res, next) => {
+exports.createWeet = async (req, res, next) => {
   const { user_id } = req.body;
   try {
     const { joke } = await getWeet();
