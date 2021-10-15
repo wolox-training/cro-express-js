@@ -6,6 +6,7 @@ const { adminUser } = require('./controllers/admin-user');
 const { createWeet } = require('./controllers/weet/create-weet');
 const { getWeets } = require('./controllers/weet/get-weets');
 const { gradeWeet } = require('./controllers/weet/grade-weet');
+const { invalidateSessions } = require('./controllers/invalidate-sessions');
 const { schemaValidation } = require('./middlewares/schema-validation');
 const emailValidation = require('./middlewares/email-validation');
 const credentialsMatch = require('./middlewares/credentials-match');
@@ -24,4 +25,5 @@ exports.init = app => {
   app.post('/weets', [tokenValidation], createWeet);
   app.get('/weets', [tokenValidation, schemaValidation(paramSchema)], getWeets);
   app.post('/weets/:id/ratings', [tokenValidation, schemaValidation(scoreSchema)], gradeWeet);
+  app.get('/users/sessions/invalidate_all', [tokenValidation], invalidateSessions);
 };
