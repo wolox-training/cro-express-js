@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       password: { type: DataTypes.STRING, allowNull: false },
-      role: { type: DataTypes.STRING, defaultValue: 'user' }
+      role: { type: DataTypes.STRING, defaultValue: 'user' },
+      points: { type: DataTypes.INTEGER, defaultValue: 0 },
+      position: { type: DataTypes.STRING, defaultValue: 'Developer' }
     },
     {
       timestamps: false,
